@@ -1,0 +1,15 @@
+sudo: required
+
+language: ruby
+
+services:
+  - docker
+
+before_install:
+  - docker build -t michieltjuh11/demo_app .
+  - docker run -d -p 127.0.0.1:80:4567 michieltjuh11/demo_app
+  - docker ps -a
+  - docker run exec -i -t michieltjuh11/demo_app bin/bash
+
+script:
+  - bundle exec rake test
